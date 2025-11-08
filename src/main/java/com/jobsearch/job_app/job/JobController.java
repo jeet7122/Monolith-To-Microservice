@@ -6,16 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-
 @RequestMapping("/api/v1/jobs")
 public class JobController {
     @Autowired
     private JobService jobService;
 
     @GetMapping
-    public ResponseEntity<List<Job>> findAll() {
+    public ResponseEntity<List<Job>> findAllJobs() {
         List<Job> jobs = jobService.findAll();
         if (jobs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -23,10 +23,10 @@ public class JobController {
         return new ResponseEntity<>(jobs, HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<Job> findById(long id) {
-        Job job = jobService.findById(id);
-        if (job == null) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Job>> findByJobId(@PathVariable Long id) {
+        Optional<Job> job = jobService.findById(id);
+        if (job.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(job, HttpStatus.OK);
@@ -41,6 +41,10 @@ public class JobController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateJob(@RequestBody Job job, @PathVariable Long id) {
+        Optional<Job> jobToUpdate = jobService.findById(id);
+        if (jobToUpdate.isEmpty()){
+            return new ResponseEntity<>("No Job found with id: " + id ,HttpStatus.NOT_FOUND);
+        }
         jobService.updateJob(job,id);
         return new ResponseEntity<>("Job updated", HttpStatus.OK);
     }

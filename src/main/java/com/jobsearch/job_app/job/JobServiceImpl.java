@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -18,8 +19,8 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Job findById(long id) {
-        return jobRepository.findById(id).orElseThrow(() -> new RuntimeException("job not found"));
+    public Optional<Job> findById(Long id) throws RuntimeException {
+        return jobRepository.findById(id);
     }
 
     @Override

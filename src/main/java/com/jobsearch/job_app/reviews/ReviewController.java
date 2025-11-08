@@ -31,4 +31,12 @@ public class ReviewController {
         if (review != null) return new ResponseEntity<>(review, HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PutMapping("/reviews/{reviewId}")
+    public ResponseEntity<String> updateReview(@PathVariable Long companyId, @PathVariable Long reviewId, @RequestBody Review review)
+    {
+        boolean updated = reviewService.updateReview(companyId, reviewId, review);
+        if (updated) return new ResponseEntity<>("Review updated successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Error updating review", HttpStatus.BAD_REQUEST);
+    }
 }

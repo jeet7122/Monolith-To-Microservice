@@ -1,5 +1,6 @@
 package com.jobsearch.job_app.company;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jobsearch.job_app.job.Job;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,8 @@ public class Company {
     private Long id;
     private String name;
     private String description;
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(mappedBy = "company")
     private List<Job> jobs;
 //    private List<Review> reviews;
 

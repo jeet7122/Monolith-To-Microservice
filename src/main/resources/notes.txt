@@ -1,0 +1,13 @@
+I am building a fully-fledged POS system for small businesses like convenience store with 2 other team members,
+I am leading the group, so far we have created DBTables and a form where db credentials can be entered by user for connecting the database,
+making project portable.
+Next as per my thinking we should work on Registering Cashiers/Admin for Accessing POS,
+So Register and Login Page,
+We Have to implement role-based access and also restrict cashiers from accessing admin endpoints
+After solving all the login and registration logic and requirements, we should move on to prepare a generic Dashboard,
+which stays same in all the screen with different options,Like Manage Products/Suppliers/Sales/Process Sales/Inventory Management/etc
+mostly ui would be done by Member1, and connecting backend and database would be done by me and another team member, and mostly i would be fixing code issue and flawlessly synchronized with frontend(UI),
+I would be the one responsible to fix any kinds of bugs and errors which could not be solved by my teammates
+
+Tech-Stack:
+Java, JavaFX, JDBC, MYSQL, CSS

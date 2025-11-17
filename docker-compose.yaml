@@ -1,0 +1,72 @@
+services:
+  postgres-companies:
+    image: postgres
+    container_name: postgres-companies
+    restart: always
+    environment:
+      POSTGRES_USER: jeet
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: company_db
+      PGDATA: /var/lib/postgresql/data/pgdata # Changed for better compatibility
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_company_data:/var/lib/postgresql/data
+    networks:
+      - microservices_net
+
+  postgres-jobs:
+    image: postgres
+    container_name: postgres-jobs
+    restart: always
+    environment:
+      POSTGRES_USER: jeet
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: job_db
+      PGDATA: /var/lib/postgresql/data/pgdata # Changed for better compatibility
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_job_data:/var/lib/postgresql/data
+    networks:
+      - microservices_net
+
+  postgres-reviews:
+    image: postgres
+    container_name: postgres-reviews
+    restart: always
+    environment:
+      POSTGRES_USER: jeet
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: review_db
+      PGDATA: /var/lib/postgresql/data/pgdata # Changed for better compatibility
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_review_data:/var/lib/postgresql/data
+    networks:
+      - microservices_net
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_container
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "jeetthakkar2612@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "password"
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - microservices_net
+
+networks:
+  microservices_net:
+    driver: bridge
+
+volumes:
+  postgres_company_data:
+  postgres_job_data:
+  postgres_review_data:
+  pgadmin_data:

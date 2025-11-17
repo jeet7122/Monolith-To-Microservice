@@ -1,9 +1,12 @@
 package com.job_app.jobms.job;
 
+import com.job_app.jobms.job.dto.JobWithCompanyDTO;
+import com.job_app.jobms.job.external.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +18,8 @@ public class JobController {
     private JobService jobService;
 
     @GetMapping
-    public ResponseEntity<List<Job>> findAllJobs() {
-        List<Job> jobs = jobService.findAll();
+    public ResponseEntity<List<JobWithCompanyDTO>> findAllJobs() {
+        List<JobWithCompanyDTO> jobs = jobService.findAll();
         if (jobs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
